@@ -15,11 +15,30 @@ public class CalendarService {
         this.calendarRepository = calendarRepository;
     }
 
-    public List<Calendar> getAllCalendars() {
+    public List<Calendar> findAll() {
         return calendarRepository.findAll();
     }
 
-    public Optional<Calendar> getCalendarById(Long id) {
+    public Optional<Calendar> findById(Long id) {
         return Optional.of(calendarRepository.findById(id).orElse(null));
+    }
+
+    public Calendar create(Calendar calendar) {
+        return calendarRepository.save(calendar);
+    }
+
+    public Calendar update(Long id, Calendar calendar) {
+        if (!calendarRepository.existsById(id)) {
+            return null; // or throw an exception
+        }
+        calendar.setId(id);
+        return calendarRepository.save(calendar);
+    }
+
+    public void delete(Long id) {
+        if (!calendarRepository.existsById(id)) {
+            return; // or throw an exception
+        }
+        calendarRepository.deleteById(id);
     }
 }

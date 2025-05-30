@@ -15,11 +15,30 @@ public class EventService {
         this.eventRepository = eventRepository;
     }
 
-    public List<Event> getAllEvents() {
+    public List<Event> findAll() {
         return eventRepository.findAll();
     }
 
-    public Optional<Event> getEventById(Long id) {
+    public Optional<Event> findById(Long id) {
         return Optional.of(eventRepository.findById(id).orElse(null));
+    }
+
+    public Event create(Event event) {
+        return eventRepository.save(event);
+    }
+
+    public Event update(Long id, Event event) {
+        if (!eventRepository.existsById(id)) {
+            return null; // or throw an exception
+        }
+        event.setId(id);
+        return eventRepository.save(event);
+    }
+
+    public void delete(Long id) {
+        if (!eventRepository.existsById(id)) {
+            return; // or throw an exception
+        }
+        eventRepository.deleteById(id);
     }
 }
