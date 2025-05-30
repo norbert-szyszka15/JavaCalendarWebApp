@@ -3,8 +3,6 @@ package org.example.javacalendarwebapp.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import org.example.javacalendarwebapp.priority.PriorityLevel;
-
 @Entity
 @Data
 @Table(name = "tasks")
