@@ -18,4 +18,11 @@ public class Task {
 
     @Column(name = "task_description", columnDefinition = "TEXT")
     private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+        name = "calendar_id",
+        foreignKey = @ForeignKey(name = "fk_task_calendar"),
+        nullable = false)
+    private Calendar calendar;
 }

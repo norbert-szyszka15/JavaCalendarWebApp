@@ -17,4 +17,10 @@ public class Event {
     @Column(name = "event_description", columnDefinition = "TEXT")
     private String description;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+        name = "calendar_id",
+        foreignKey = @ForeignKey(name = "fk_event_calendar"),
+        nullable = false)
+    private Calendar calendar;
 }
