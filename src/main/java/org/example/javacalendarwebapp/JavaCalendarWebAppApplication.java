@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan("org.example.projectmanagerapp.entity")
+@EntityScan("org.example.javacalendarwebapp.entity")
 @EnableJpaRepositories("org.example.javacalendarwebapp.repository")
 public class JavaCalendarWebAppApplication {
     public static void main(String[] args) {
