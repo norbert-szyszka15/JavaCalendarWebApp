@@ -1,11 +1,5 @@
 package org.example.javacalendarwebapp.entity;
 
-import org.example.javacalendarwebapp.config.ApplicationContextProvider;
-import org.example.javacalendarwebapp.priority.HighPriority;
-import org.example.javacalendarwebapp.priority.LowPriority;
-import org.example.javacalendarwebapp.priority.MediumPriority;
-import org.example.javacalendarwebapp.priority.PriorityLevel;
-
 import jakarta.persistence.*;
 import lombok.Data;
 
