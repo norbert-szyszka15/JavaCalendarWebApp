@@ -20,7 +20,7 @@ public class UserService {
     }
 
     public Optional<User> findById(Long id) {
-        return Optional.of(userRepository.findById(id).orElse(null));
+        return userRepository.findById(id);
     }
 
     public User create(User user) {

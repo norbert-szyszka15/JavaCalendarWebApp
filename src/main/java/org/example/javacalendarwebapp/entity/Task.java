@@ -3,6 +3,8 @@ package org.example.javacalendarwebapp.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @Table(name = "tasks")
@@ -16,6 +18,13 @@ public class Task {
 
     @Column(name = "task_description", columnDefinition = "TEXT")
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "task_priority", nullable = false)
+    private TaskPriority priority;
+
+    @Column(name = "task_date", nullable = false)
+    private LocalDateTime date;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(

@@ -20,7 +20,7 @@ public class CalendarService {
     }
 
     public Optional<Calendar> findById(Long id) {
-        return Optional.of(calendarRepository.findById(id).orElse(null));
+        return calendarRepository.findById(id);
     }
 
     public Calendar create(Calendar calendar) {

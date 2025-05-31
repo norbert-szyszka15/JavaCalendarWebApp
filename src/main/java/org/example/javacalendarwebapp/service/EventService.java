@@ -4,6 +4,7 @@ import org.example.javacalendarwebapp.entity.Event;
 import org.example.javacalendarwebapp.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ public class EventService {
     }
 
     public Optional<Event> findById(Long id) {
-        return Optional.of(eventRepository.findById(id).orElse(null));
+        return eventRepository.findById(id);
     }
 
     public Event create(Event event) {
@@ -40,5 +41,10 @@ public class EventService {
             return; // or throw an exception
         }
         eventRepository.deleteById(id);
+    }
+
+    public LocalDateTime getEventDateByID(Long id) {
+        Event e = eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Event not found with id: " + id));
+        return e.getDate();
     }
 }

@@ -9,6 +9,8 @@ import org.example.javacalendarwebapp.priority.PriorityLevel;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @Table(name = "events")
@@ -23,33 +25,8 @@ public class Event {
     @Column(name = "event_description", columnDefinition = "TEXT")
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "task_priority", nullable = true)
-    private TaskPriority priority;
-
-    @Transient
-    private PriorityLevel priorityLevel;
-
-    @PostLoad
-    @PostPersist
-    private void initPriorityLevel() {
-        switch (priority) {
-            case HIGH: {
-                priorityLevel = ApplicationContextProvider.getBean(HighPriority.class);
-                break;
-            }
-            case MEDIUM: {
-                priorityLevel = ApplicationContextProvider.getBean(MediumPriority.class);
-                break;
-            }
-            case LOW:
-            default: {
-                priorityLevel = ApplicationContextProvider.getBean(LowPriority.class);
-                break;
-            }
-            
-        }
-    }
+    @Column(name = "event_date", nullable = false)
+    private LocalDateTime date;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(

@@ -4,6 +4,7 @@ import org.example.javacalendarwebapp.entity.Task;
 import org.example.javacalendarwebapp.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ public class TaskService {
     }
 
     public Optional<Task> findById(Long id) {
-        return Optional.of(taskRepository.findById(id).orElse(null));
+        return taskRepository.findById(id);
     }
 
     public Task create(Task task) {
@@ -40,5 +41,10 @@ public class TaskService {
             return; // or throw an exception
         }
         taskRepository.deleteById(id);
+    }
+
+    public LocalDateTime getTaskDateById(Long id) {
+        Task t = taskRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Task not found with id: " + id));
+        return t.getDate();
     }
 }

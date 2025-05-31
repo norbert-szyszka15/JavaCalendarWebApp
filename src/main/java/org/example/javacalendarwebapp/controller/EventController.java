@@ -1,5 +1,6 @@
 package org.example.javacalendarwebapp.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,5 +75,22 @@ public class EventController {
     ) {
         eventService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/date")
+    @Operation(summary = "Get event date", description = "Returns only the event's date for given ID")
+    public ResponseEntity<LocalDateTime> getEventDateById(
+            @Parameter(description = "ID of the event", required = true)
+            @PathVariable Long id
+    ) {
+        try {
+            LocalDateTime date = eventService.getEventDateByID(id);
+            if (date == null) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(date);
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
