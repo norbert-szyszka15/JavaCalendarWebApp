@@ -82,7 +82,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-            </dependency>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>9.13.0</version> <!-- lub najnowsza dostępna -->
+        </dependency>
     </dependencies>
 
     <build>
