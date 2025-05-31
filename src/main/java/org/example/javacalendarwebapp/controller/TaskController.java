@@ -93,4 +93,32 @@ public class TaskController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/completed")
+    @Operation(summary = "Get all completed tasks", description = "Retrieve a list of all completed tasks associated with the calendar.")
+    public ResponseEntity<List<Task>> getAllCompletedTasks() {
+        List<Task> completed = taskService.findAllCompletedTasks();
+        return ResponseEntity.ok(completed);
+    }
+
+    @GetMapping("/uncompleted")
+    @Operation(summary = "Get all uncompleted tasks", description = "Retrieve a list of all uncompleted tasks associated with the calendar.")
+    public ResponseEntity<List<Task>> getAllUncompletedTasks() {
+        List<Task> uncompleted = taskService.findAllUncompletedTasks();
+        return ResponseEntity.ok(uncompleted);
+    }
+
+    @PutMapping("/{id}/complete")
+    @Operation(summary = "Mark a task as completed", description = "Mark a specific task as completed based on its id.")
+    public ResponseEntity<Task> markTaskAsCompleted(
+            @Parameter(description = "ID of the task to mark as completed", required = true)
+            @PathVariable Long id
+    ) {
+        try {
+            Task updated = taskService.markAsCompleted(id);
+            return ResponseEntity.ok(updated);
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

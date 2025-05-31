@@ -1,5 +1,6 @@
 package org.example.javacalendarwebapp.service;
 
+import jakarta.transaction.Transactional;
 import org.example.javacalendarwebapp.entity.Task;
 import org.example.javacalendarwebapp.repository.TaskRepository;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,21 @@ public class TaskService {
     public LocalDateTime getTaskDateById(Long id) {
         Task t = taskRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Task not found with id: " + id));
         return t.getDate();
+    }
+
+    public List<Task> findAllCompletedTasks() {
+        return taskRepository.findByCompletedTrue();
+    }
+
+    public List<Task> findAllUncompletedTasks() {
+        return taskRepository.findByCompletedFalse();
+    }
+
+    @Transactional
+    public Task markAsCompleted(Long id) {
+        Task t = taskRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Task not found with id: " + id));
+        t.setCompleted(true);
+
+        return taskRepository.save(t);
     }
 }

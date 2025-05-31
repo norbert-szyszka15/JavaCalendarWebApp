@@ -26,6 +26,9 @@ public class Task {
     @Column(name = "task_date", nullable = false)
     private LocalDateTime date;
 
+    @Column(name = "completed", nullable = false)
+    private Boolean completed = false;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
         name = "calendar_id",
