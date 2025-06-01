@@ -1,6 +1,7 @@
 # JavaCalendarWebApp
 ![title](https://github.com/user-attachments/assets/e5088a41-b081-4972-a03a-a3442f5887a3)
 
+Autor: Norbert Szszka
 ---
 
 ### **Budowanie i uruchamianie backendu aplikacji**
