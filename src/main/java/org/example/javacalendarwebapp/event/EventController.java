@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @Tag(name = "Event Management", description = "Manage calendar events")
@@ -32,12 +31,13 @@ public class EventController {
     @GetMapping("/{id}")
     @Operation(summary = "Get event by id", description = "Retrieve a calendar event based on its id.")
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public Optional<Event> getEventById(
+    public ResponseEntity<Event> getEventById(
         @Parameter(description = "ID of the event to retrieve", required = true)
         @PathVariable Long id
     ) {
-        return Optional.ofNullable(eventService.findById(id).orElseThrow(() -> new RuntimeException("Event not found with id: " + id)));
-    }
+        Event found = eventService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Event not found with id: " + id));
+        return ResponseEntity.ok(found);    }
 
     @PostMapping("/create")
     @Operation(summary = "Create a new event", description = "Create a new calendar event with the provided details.")
