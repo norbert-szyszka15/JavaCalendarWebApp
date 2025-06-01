@@ -38,7 +38,6 @@ W aplikacji można wyróżnić dwie główne role - `ADMIN` oraz `USER` (dany u�
 public List<User> getAllUsers() {
   return userService.findAll();
 }
+```
 
 ![user_restriction](https://github.com/user-attachments/assets/792a5bbb-3e39-49d1-a68f-e4f49df4f5a0)
-
-```
