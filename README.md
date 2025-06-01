@@ -21,6 +21,21 @@ Instrukcja zbudowania i uruchomienia backendu:
 
 ---
 
+### **`DataInitializer.java` i pierwsze dane użytkowników**
+Przy pierwszym uruchomieniu backendu aplikacji, po usunięciu odpowiednich danych z tabeli `users` lub w przypadku nieposiadania w niej jednego użytkownika z sygnaturą `ADMIN` i jednego użytkownika z sygnaturą `USER`, skrypt zawarty w pliku `DataInitializer.java` utworzy bazowych użytkowników, czyli kolejno:
+- administratora `ADMIN`, `USER` o domyślnej nazwie użytkownika `admin` i haśle `admin123` (można to zmodyfikować w ciele skrypu),
+- użytkownika standardowego `USER` o domyślnej nazwie użytkownika `user` i haśle `user123` (można to zmodyfikować w ciele skrypu).
+
+![main_users](https://github.com/user-attachments/assets/5d9c5b4a-de6e-4f54-95c5-ade46f0bd4a4)
+
+---
+
+### **Diagram ERD bazy danych**
+Diagram ERD bazy danych, na której działa aplikacja, przedstawia się jak poniżej:
+![java_calendar_web_app_ERD](https://github.com/user-attachments/assets/7dca8d95-4463-4153-b7bc-a7ebee6895c2)
+
+---
+
 ### **Wzorce projektowe zastosowane w aplikacji**
 1. **MVC** - podział projektu na warstwy Web, logiczne i dostępu do danych,
 2. **Facade** - warstwy serwisowe dla każdej z encji i odpowiadającego jej kontrolera,
