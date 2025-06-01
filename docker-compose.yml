@@ -1,15 +1,16 @@
-version: '3.8'
+version: "3.8"
 
 services:
   db:
-    image: postgres:15-alpine
+    image: postgres:16
     container_name: jcwa-db
+    restart: unless-stopped
     environment:
-      POSTGRES_DB: calendar
-      POSTGRES_USER: test
-      POSTGRES_PASSWORD: test
+      POSTGRES_DB: java_calendar_web_app
+      POSTGRES_USER: calendar_user
+      POSTGRES_PASSWORD: calendar_user_password
     volumes:
-      - db_data:/var/lib/postgresql/calendar
+      - db_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
@@ -17,16 +18,23 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: springio/javacalendarwebapp:latest
     container_name: jcwa-app
+    restart: on-failure
     depends_on:
       - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/calendar
-      SPRING_DATASOURCE_USERNAME: test
-      SPRING_DATASOURCE_PASSWORD: test
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: calendar_user
+      DB_PASSWORD: calendar_user_password
+
     ports:
       - "8080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${DB_USER} -h $${DB_HOST} -p $${DB_PORT}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
 volumes:
   db_data:
