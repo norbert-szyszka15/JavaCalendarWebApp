@@ -1,9 +1,12 @@
 package org.example.javacalendarwebapp;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JavaCalendarWebAppApplicationTests {
+class JavaCalendarWebAppApplicationTest {
 
-
+    @Test
+    void contextLoads() {
+    }
 }

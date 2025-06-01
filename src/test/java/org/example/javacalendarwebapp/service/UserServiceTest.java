@@ -70,7 +70,6 @@ class UserServiceTest {
     void update_UserExists_ReturnsUpdated() {
         User updated = new User(); updated.setUsername("upd");
         when(userRepository.existsById(3L)).thenReturn(true);
-        // Kiedy wywołamy save, zwróćmy obiekt z id
         User saved = new User(); saved.setId(3L); saved.setUsername("upd");
         when(userRepository.save(any(User.class))).thenReturn(saved);
 

@@ -120,7 +120,6 @@ class EventControllerTest {
 
     @Test
     void getEventDate_Exists_ReturnsArray() throws Exception {
-        // Jackson serializuje LocalDateTime jako tablicę [rok, miesiąc, dzień, godzina, minuta]
         LocalDateTime dt = LocalDateTime.of(2025, 6, 2, 9, 0);
         when(eventService.getEventDateByID(11L)).thenReturn(dt);
 

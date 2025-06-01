@@ -1,4 +1,3 @@
-// src/test/java/org/example/javacalendarwebapp/controller/TaskControllerTest.java
 package org.example.javacalendarwebapp.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,7 +32,6 @@ class TaskControllerTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        // Rejestrujemy GlobalExceptionHandler, który obsłuży wyjątki z kontrolera
         mockMvc = MockMvcBuilders.standaloneSetup(taskController)
                 .setControllerAdvice(new GlobalExceptionHandler())
                 .build();
@@ -122,7 +120,6 @@ class TaskControllerTest {
 
     @Test
     void getTaskDate_Exists_ReturnsIsoArray() throws Exception {
-        // Jackson domyślnie serializuje LocalDateTime jako tablicę [rok, miesiąc, dzień, godzina, minuta, sekunda]
         LocalDateTime dt = LocalDateTime.of(2025, 6, 3, 15, 0);
         when(taskService.getTaskDateById(11L)).thenReturn(dt);
 
