@@ -1,13 +1,8 @@
 package org.example.javacalendarwebapp.calendar;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -29,12 +24,14 @@ public class CalendarController {
 
     @GetMapping
     @Operation(summary = "Get all calendars", description = "Retrieve a list of all available calendars.")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public List<Calendar> getAllCalendars() {
         return calendarService.findAll();
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get calendar by id", description = "Retrieve calendar based on its id.")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public Optional<Calendar> getCalendarById(
         @Parameter(description = "ID of the calendar to retrieve", required = true)
         @PathVariable Long id
@@ -44,6 +41,7 @@ public class CalendarController {
 
     @PostMapping("/create")
     @Operation(summary = "Create a new calendar", description = "Create a new calendar with the provided details.")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Calendar> createCalendar(
         @Parameter(description = "Details of the calendar to create", required = true)
         @RequestBody Calendar calendar
@@ -54,6 +52,7 @@ public class CalendarController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update an existing calendar", description = "Update the details of an existing calendar.")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Calendar> updateCalendar(
         @Parameter(description = "ID of the calendar to update", required = true)
         @PathVariable Long id,
@@ -66,6 +65,7 @@ public class CalendarController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a calendar", description = "Delete a calendar based on its id.")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Void> deleteCalendar(
         @Parameter(description = "ID of the calendar to delete", required = true)
         @PathVariable Long id

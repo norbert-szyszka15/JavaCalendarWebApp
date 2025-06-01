@@ -1,16 +1,16 @@
 package org.example.javacalendarwebapp.event;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Tag(name = "Event Management", description = "Manage calendar events")
@@ -24,12 +24,14 @@ public class EventController {
 
     @GetMapping
     @Operation(summary = "Get all events", description = "Retrieve a list of all calendar events.")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public List<Event> getAllEvents() {
         return eventService.findAll();
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get event by id", description = "Retrieve a calendar event based on its id.")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public Optional<Event> getEventById(
         @Parameter(description = "ID of the event to retrieve", required = true)
         @PathVariable Long id
@@ -39,6 +41,7 @@ public class EventController {
 
     @PostMapping("/create")
     @Operation(summary = "Create a new event", description = "Create a new calendar event with the provided details.")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Event> createEvent(
         @Parameter(description = "Details of the event to create", required = true)
         @RequestBody Event event
@@ -49,6 +52,7 @@ public class EventController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update an existing event", description = "Update the details of an existing calendar event.")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Event> updateEvent(
         @Parameter(description = "ID of the event to update", required = true)
         @PathVariable Long id,
@@ -61,6 +65,7 @@ public class EventController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete an event", description = "Delete a calendar event based on its id.")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Void> deleteEvent(
         @Parameter(description = "ID of the event to delete", required = true)
         @PathVariable Long id
@@ -71,6 +76,7 @@ public class EventController {
 
     @GetMapping("/{id}/date")
     @Operation(summary = "Get event date", description = "Returns only the event's date for given ID")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<LocalDateTime> getEventDateById(
             @Parameter(description = "ID of the event", required = true)
             @PathVariable Long id

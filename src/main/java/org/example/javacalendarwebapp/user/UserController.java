@@ -1,14 +1,15 @@
 package org.example.javacalendarwebapp.user;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Tag(name = "User Management", description = "Manage user accounts and profiles")
@@ -22,12 +23,14 @@ public class UserController {
     
     @GetMapping
     @Operation(summary = "Get user profile", description = "Retrieve the profile information of the currently authenticated user.")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public List<User> getAllUsers() {
         return userService.findAll();
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get user by id", description = "Retrieve a specific user profile based on its id.")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public Optional<User> getUserById(
         @Parameter(description = "ID of the user to retrieve", required = true)
         @PathVariable Long id
@@ -37,6 +40,7 @@ public class UserController {
 
     @PostMapping("/create")
     @Operation(summary = "Create a new user", description = "Create a new user profile with the provided details.")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<User> createUser(
         @Parameter(description = "Details of the user to create", required = true)
         @RequestBody User user
@@ -47,6 +51,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update an existing user", description = "Update the details of an existing user profile.")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<User> updateUser(
         @Parameter(description = "ID of the user to update", required = true)
         @PathVariable Long id,
@@ -59,6 +64,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a user", description = "Delete a user profile based on its id.")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Void> deleteUser(
         @Parameter(description = "ID of the user to delete", required = true)
         @PathVariable Long id
