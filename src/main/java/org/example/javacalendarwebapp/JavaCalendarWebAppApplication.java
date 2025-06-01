@@ -9,10 +9,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @OpenAPIDefinition(
   info = @Info(
-    title       = "Java Calendar Web App API",
+    title       = "Java Calendar Web App",
     version     = "v1.0",
     description = "REST API dla aplikacji kalendarza",
-    contact     = @Contact(name = "Zespół Dev", email = "dev@example.com")
+    contact     = @Contact(name = "Norbert Szyszka", email = "norbert.szyszka@student.pk.edu.pl")
   )
 )
 public class JavaCalendarWebAppApplication {
