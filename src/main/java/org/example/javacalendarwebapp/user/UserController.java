@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @Tag(name = "User Management", description = "Manage user accounts and profiles")
@@ -31,11 +30,13 @@ public class UserController {
     @GetMapping("/{id}")
     @Operation(summary = "Get user by id", description = "Retrieve a specific user profile based on its id.")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public Optional<User> getUserById(
+    public ResponseEntity<User> getUserById(
         @Parameter(description = "ID of the user to retrieve", required = true)
         @PathVariable Long id
     ) {
-        return Optional.ofNullable(userService.findById(id).orElseThrow(() -> new RuntimeException("User not found with id: " + id)));
+        User found = userService.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+        return ResponseEntity.ok(found);
     }
 
     @PostMapping("/create")
