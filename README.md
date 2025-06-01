@@ -44,7 +44,7 @@ Diagram ERD bazy danych, na której działa aplikacja, przedstawia się jak poni
 
 ---
 
-### **Podział na użytkowników**
+### **Podział na użytkowników i Spring Security**
 W aplikacji można wyróżnić dwie główne role - `ADMIN` oraz `USER` (dany użytkownik może jednocześnie przybierać obie te role). Kontrolery zbudowane dla każdej z encji `Calendar`, `User`, `Event` i `Task` zapewniają, że zwykły użytkownik nie może wykonywać poleceń przewidzianych jedynie dla administratora. Przykładowo, poniższa metoda zapewnia, że profil użytkownika (a więc miejscie, w którym wyświetlone zostanie m.in. hashowane hasło użytkownika) wyświetlić może jedynie administrator aplikacji.
 ```java
 @GetMapping
@@ -54,5 +54,15 @@ public List<User> getAllUsers() {
   return userService.findAll();
 }
 ```
-
 ![user_restriction](https://github.com/user-attachments/assets/792a5bbb-3e39-49d1-a68f-e4f49df4f5a0)
+
+---
+
+### **Testy jednostkowe i narzędzie JaCoCo**
+Aplikacja zawiera także testy jednostkowe o pokryciu kodu przekraczającym wymagane w założeniach projektowych 80%. Testy jednostkowe wykorzystują `@MockMvc` i `@TestContainers`, a stopień pokrycia nimi kodu aplikacji został zweryfikowany przy pomocy narzędzia JaCoCo, które zostało odpowiednio skonfigurowane dla projektu. W celu weryfikacji pokrycia można, znajdując się w katalogu głównym aplikacji, uruchomić komendę `mvn clean verify`. W wyniku tej weryfikacji pod ścieżką `target/site/jacoco` utworzony zostanie plik `index.html`, w którym zawarty jest stopień pokrycia.
+
+Zrzut ekranu z pliku `index.html` wygenerowanego przy pomocy narzędzia JaCoCo:
+![jacoco](https://github.com/user-attachments/assets/acc14ea8-66ad-4aaf-86cf-42e3bc998009)
+
+---
+
