@@ -27,7 +27,7 @@ public class CalendarService {
 
     public Calendar update(Long id, Calendar calendar) {
         if (!calendarRepository.existsById(id)) {
-            return null; // or throw an exception
+            return null;
         }
         calendar.setId(id);
         return calendarRepository.save(calendar);
@@ -35,7 +35,7 @@ public class CalendarService {
 
     public void delete(Long id) {
         if (!calendarRepository.existsById(id)) {
-            return; // or throw an exception
+            return;
         }
         calendarRepository.deleteById(id);
     }

@@ -27,7 +27,7 @@ public class UserService {
 
     public User update(Long id, User user) {
         if (!userRepository.existsById(id)) {
-            return null; // or throw an exception
+            return null;
         }
         user.setId(id);
         return userRepository.save(user);
@@ -35,7 +35,7 @@ public class UserService {
 
     public void delete(Long id) {
         if (!userRepository.existsById(id)) {
-            return; // or throw an exception
+            return;
         }
         userRepository.deleteById(id);
     }

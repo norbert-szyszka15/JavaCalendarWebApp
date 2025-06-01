@@ -28,7 +28,7 @@ public class EventService {
 
     public Event update(Long id, Event event) {
         if (!eventRepository.existsById(id)) {
-            return null; // or throw an exception
+            return null;
         }
         event.setId(id);
         return eventRepository.save(event);
@@ -36,7 +36,7 @@ public class EventService {
 
     public void delete(Long id) {
         if (!eventRepository.existsById(id)) {
-            return; // or throw an exception
+            return;
         }
         eventRepository.deleteById(id);
     }

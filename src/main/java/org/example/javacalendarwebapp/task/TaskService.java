@@ -29,7 +29,7 @@ public class TaskService {
 
     public Task update(Long id, Task task) {
         if (!taskRepository.existsById(id)) {
-            return null; // or throw an exception
+            return null;
         }
         task.setId(id);
         return taskRepository.save(task);
@@ -37,7 +37,7 @@ public class TaskService {
 
     public void delete(Long id) {
         if (!taskRepository.existsById(id)) {
-            return; // or throw an exception
+            return;
         }
         taskRepository.deleteById(id);
     }

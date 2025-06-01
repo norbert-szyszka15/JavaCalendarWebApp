@@ -51,7 +51,7 @@ public class UserController {
         @Parameter(description = "ID of the user to update", required = true)
         @PathVariable Long id,
         @Parameter(description = "Updated details of the user", required = true)
-        User user
+        @RequestBody User user
     ) {
         User updatedUser = userService.update(id, user);
         return ResponseEntity.ok(updatedUser);

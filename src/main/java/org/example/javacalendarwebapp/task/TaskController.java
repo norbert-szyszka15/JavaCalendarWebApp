@@ -6,13 +6,7 @@ import java.util.Optional;
 
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -47,7 +41,7 @@ public class TaskController {
     @Operation(summary = "Create a new task", description = "Create a new task with the provided details.")
     public ResponseEntity<Task> createTask(
         @Parameter(description = "Details of the task to create", required = true)
-        @Param("task") Task task
+        @RequestBody Task task
     ) {
         Task createdTask = taskService.create(task);
         return ResponseEntity.ok(createdTask);
@@ -59,7 +53,7 @@ public class TaskController {
         @Parameter(description = "ID of the task to update", required = true)
         @PathVariable Long id,
         @Parameter(description = "Updated details of the task", required = true)
-        @Param("task") Task task
+        @RequestBody Task task
     ) {
         Task updatedTask = taskService.update(id, task);
         return ResponseEntity.ok(updatedTask);
