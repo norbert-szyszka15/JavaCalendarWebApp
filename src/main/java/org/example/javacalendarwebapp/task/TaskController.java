@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @Tag(name = "Task Management", description = "Manage tasks within the calendar application")
@@ -32,11 +31,13 @@ public class TaskController {
     @GetMapping("/{id}")
     @Operation(summary = "Get task by id", description = "Retrieve a specific task based on its id.")
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public Optional<Task> getTaskById(
+    public ResponseEntity<Task> getTaskById(
         @Parameter(description = "ID of the task to retrieve", required = true)
         @PathVariable Long id
     ) {
-        return Optional.ofNullable(taskService.findById(id).orElseThrow(() -> new RuntimeException("Task not found with id: " + id)));
+        Task found = taskService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
+        return ResponseEntity.ok(found);
     }
 
     @PostMapping("/create")
